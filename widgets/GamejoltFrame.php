@@ -19,6 +19,9 @@ class GamejoltFrame extends Widget
     public function run()
     {
         $url = Yii::$app->getModule('gamejolt')->getServerUrl() . '/package/v1';
-        return $this->render('gamejoltframe', ['gamejoltUrl' => $url]);
+
+        $mode = Yii::$app->getModule('gamejolt')->getMode() . '';
+
+        return $this->render('gamejoltframe', ['gamejoltUrl' => $url, 'mode' => $mode]);
     }
 }

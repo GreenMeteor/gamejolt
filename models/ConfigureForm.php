@@ -12,6 +12,7 @@ class ConfigureForm extends Model
 {
 
     public $serverUrl;
+    public $mode;
 
     /**
      * @inheritdoc
@@ -19,7 +20,8 @@ class ConfigureForm extends Model
     public function rules()
     {
         return [
-            ['serverUrl', 'string'],
+            ['serverUrl', 'required'],
+            ['mode', 'string'],
         ];
     }
 
@@ -30,6 +32,7 @@ class ConfigureForm extends Model
     {
         return [
             'serverUrl' => Yii::t('GamejoltModule.base', 'Gamejolt Widget URL:'),
+            'mode' => Yii::t('GamejoltModule.base', 'Day/Night Mode:'),
         ];
     }
 
@@ -40,6 +43,7 @@ class ConfigureForm extends Model
     {
         return [
             'serverUrl' => Yii::t('GamejoltModule.base', 'e.g. https://widgets.gamejolt.com//package/v1?key={package-id}'),
+            'mode' => Yii::t('GamejoltModule.base', 'e.g. <code>&theme=light</code>'),
         ];
     }
 
@@ -47,12 +51,16 @@ class ConfigureForm extends Model
     {
         $this->serverUrl = Yii::$app->getModule('gamejolt')->settings->get('serverUrl');
 
+        $this->mode = Yii::$app->getModule('gamejolt')->settings->get('mode');
+
         return true;
     }
 
     public function save()
     {
         Yii::$app->getModule('gamejolt')->settings->set('serverUrl', $this->serverUrl);
+
+        Yii::$app->getModule('gamejolt')->settings->set('mode', $this->mode);
 
         return true;
     }

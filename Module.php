@@ -15,10 +15,9 @@ class Module extends \humhub\components\Module
      */
     public function getConfigUrl()
     {
-        return Url::to([
-                    '/gamejolt/admin'
-        ]);
+        return Url::to(['/gamejolt/admin']);
     }
+
     public function getServerUrl()
     {
         $url = $this->settings->get('serverUrl');
@@ -28,4 +27,12 @@ class Module extends \humhub\components\Module
         return $url;
     }
 
+    public function getMode()
+    {
+        $mode = $this->settings->get('mode');
+        if (empty($mode)) {
+            return '';
+        }
+        return $mode;
+    }
 }
